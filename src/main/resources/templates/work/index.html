@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+    <head th:include="layout :: htmlhead"></head>
+    <body>
+        <nav th:replace="layout :: menu">(menu)</nav>
+        <h1>Trabalhadores</h1>
+
+        <a href="/works/novo" class="btn btn-primary">Novo</a>
+
+        <table class="table" id="tabclientes">
+            <thead>
+                <th>Nome</th>
+                <th>Endereço</th>
+                <th>Data Nascimento</th>
+                <th></th>
+            </thead>
+            <tbody>
+                <tr th:each="umWork : ${listaWork}">
+                    <td th:text="${umWork.nome}"></td>
+                    <td th:text="${umWork.funcao}"></td>
+                    <td th:text="${umWork.area}"></td>
+                    <td><a th:href="@{'/works/alterar/'+ ${umWork.id}}"
+                        class="btn btn-warning">Alterar</a>
+                        
+                        <button class="btn btn-danger js-delete"
+                            th:data-id="${umWork.id}">Excluir</button>
+                    
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="modal" tabindex="-1" id="modalwork">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Excluir Trabalhador?</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <p>Confirma a exclusão do trabalhador?</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
+                  <button type="button" class="btn btn-primary" id="btnsim">Sim</button>
+                </div>
+              </div>
+            </div>
+        </div>
+
+        <div th:include="layout :: footer">(footer)</div>
+        <script th:src="@{/script.js}"></script>
+    </body>
+</html>
